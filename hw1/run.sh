@@ -1,6 +1,9 @@
-RPID=$(ssh root@$1 "iperf3 -s -p $2 > iperf3.txt & echo -e \$!")
-iperf3 -c $1 -p $2-t $3 -i $4 --forceflush | tee $5
-ssh root@$1 "kill -9 $RPID"
+#!/bin/bash
+. parse_yaml.sh
+eval $(parse_yaml config.yaml)
+RPID=$(ssh root@$REMOTE_IP "iperf3 -s -p $PORT > iperf3.txt & echo -e \$!")
+iperf3 -c $REMOTE_IP -p $PORT -t $TIME -i $INTERVAL --forceflush | tee $OUTPUT_FILE
+ssh root@$REMOTE_IP "kill -9 $RPID"
 
 
 
