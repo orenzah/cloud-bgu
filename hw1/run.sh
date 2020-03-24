@@ -9,8 +9,3 @@ else
 
 fi
 ssh root@$REMOTE_IP "kill -9 $RPID"
-
-
-
-
-
