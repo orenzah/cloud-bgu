@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hw2deploy
+spec:
+  selector:
+    matchLabels:
+      run: cloudnginx1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: cloudnginx1
+    spec:
+      containers:
+      - name: cloudnginx1
+        image: orenzah/custom-nginx:1.00
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 2m
+          requests:
+            cpu: 1m
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: hw2service
+  labels:
+    run: cloudnginx1
+spec:
+  ports:
+  - port: 30555
+    targetPort: 80
+  selector:
+    run: cloudnginx1
+---
+
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hw2deploy
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: hw2deploy
+  minReplicas: 1
+  maxReplicas: 100
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+status:
+  conditions:
+  - lastTransitionTime: "2020-05-07T21:25:43Z"
+    message: recent recommendations were higher than current one, applying the highest recent recommendation
+    reason: ScaleDownStabilized
+    status: "True"
+    type: AbleToScale
+  - lastTransitionTime: "2020-05-07T21:25:43Z"
+    message: the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+    reason: ValidMetricFound
+    status: "True"
+    type: ScalingActive
+  - lastTransitionTime: "2020-05-07T21:25:43Z"
+    message: the desired count is within the acceptable range
+    reason: DesiredWithinRange
+    status: "False"
+    type: ScalingLimited
+  observedGeneration: 1
+  lastScaleTime: "2020-05-07T21:25:43Z"
+  currentReplicas: 1
+  desiredReplicas: 1
+  currentMetrics:
+  - type: Resource
+    resource:
+      name: cpu
+      current:
+        averageUtilization: 0
+        averageValue: 0
