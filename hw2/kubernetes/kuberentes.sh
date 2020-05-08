@@ -7,7 +7,6 @@ end=$((SECONDS+240)) # 4 minutes
 while [ ${SECONDS} -lt ${end} ]; do
 	wget $IP:30555 -q -O-
 done
-kubectl get rs -A
 echo -e ""
 echo -e "Rollout to image with version 2.00"
 echo -e ""
