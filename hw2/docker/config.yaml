@@ -1,0 +1,7 @@
+REMOTE_IP:    132.72.105.215
+PORT:         5201
+TRANSPORT:    TCP
+TIME:         6
+INTERVAL:     3
+OUTPUT_FILE:  output.log
+

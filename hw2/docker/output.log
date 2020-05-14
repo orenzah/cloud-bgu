@@ -1,0 +1,11 @@
+Connecting to host 132.72.105.215, port 5201
+[  5] local 132.72.110.25 port 42510 connected to 132.72.105.215 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-3.00   sec   183 MBytes   511 Mbits/sec    0    372 KBytes       
+[  5]   3.00-6.00   sec   181 MBytes   507 Mbits/sec    0    389 KBytes       
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-6.00   sec   364 MBytes   509 Mbits/sec    0             sender
+[  5]   0.00-6.01   sec   363 MBytes   506 Mbits/sec                  receiver
+
+iperf Done.
