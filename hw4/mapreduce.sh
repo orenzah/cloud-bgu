@@ -38,7 +38,7 @@ hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-2.7.7.jar \
 echo -e "Run Job 4"
 hadoop jar \
         /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-2.7.7.jar  \
-        -D mapreduce.job.output.key.comparator.class=org.apache.hadoop.mapreduce.lib.partition.KeyField$
+	-D mapreduce.job.output.key.comparator.class=org.apache.hadoop.mapreduce.lib.partition.KeyFieldBasedComparator \
         -D stream.num.map.output.key.fields=3 \
         -D mapred.text.key.partitioner.options="-k1,1" \
         -D stream.map.output.field.separator="_" \
