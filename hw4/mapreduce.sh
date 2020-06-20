@@ -14,8 +14,8 @@ hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-2.7.7.jar \
 	-output $OUTPUT_PHASE1 \
 	-mapper map1.py \
 	-file src/map1.py  \
-	-reducer reducer1_.py  \
-	-file src/reducer1_.py
+	-reducer reducer1.py  \
+	-file src/reducer1.py
 echo -e "Run Job 2"
 hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-2.7.7.jar \
 	-D mapreduce.job.reduces=2 \
