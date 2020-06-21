@@ -3,8 +3,8 @@ INPUT=$1
 OUTPUT_PHASE1="/output_py1"
 OUTPUT_PHASE2="/output_py2"
 OUTPUT_PHASE3="/output_py3"
-OUTPUT_PHASE4="/output_py4"
-OUTPUT=$2
+OUTPUT_PHASE4=$2 #"/output_py4"
+#OUTPUT=$2
 hadoop fs -rm -r $OUTPUT_PHASE1 $OUTPUT_PHASE2 $OUTPUT_PHASE3
 echo -e "Run Job 1"
 hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-2.7.7.jar \
@@ -14,8 +14,8 @@ hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-2.7.7.jar \
 	-output $OUTPUT_PHASE1 \
 	-mapper map1.py \
 	-file src/map1.py  \
-	-reducer reducer1.py  \
-	-file src/reducer1.py
+	-reducer reducer1_.py  \
+	-file src/reducer1_.py
 echo -e "Run Job 2"
 hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-2.7.7.jar \
 	-D mapreduce.job.reduces=2 \
@@ -38,7 +38,7 @@ hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-2.7.7.jar \
 echo -e "Run Job 4"
 hadoop jar \
         /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-2.7.7.jar  \
-	-D mapreduce.job.output.key.comparator.class=org.apache.hadoop.mapreduce.lib.partition.KeyFieldBasedComparator \
+		-D mapreduce.job.output.key.comparator.class=org.apache.hadoop.mapreduce.lib.partition.KeyFieldBasedComparator \
         -D stream.num.map.output.key.fields=3 \
         -D mapred.text.key.partitioner.options="-k1,1" \
         -D stream.map.output.field.separator="_" \
@@ -51,4 +51,3 @@ hadoop jar \
         -file src/map4.py  \
         -reducer reducer4.py  \
         -file src/reducer4.py
-hadoop fs -getmerge $OUTPUT_PHASE4 $OUTPUT
