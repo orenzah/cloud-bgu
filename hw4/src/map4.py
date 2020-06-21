@@ -18,7 +18,9 @@ import sys
 for line in sys.stdin:
 	line = line.strip()
 	words = line.split(',')
-	print(int(words[-1].strip()), end='_')
+	count = int(words[-1].strip())
+	cnt_w = '{0}'.format(count).rjust(5, '0')
+	print(cnt_w, end='_')
 	ppid1 = words[0].strip().replace('(' , '').replace(')' , '')
 	bit1 = words[1].strip().replace('(' , '').replace(')' , '').strip()
 	ppid2 = words[2].strip().replace('(' , '').replace(')' , '')
